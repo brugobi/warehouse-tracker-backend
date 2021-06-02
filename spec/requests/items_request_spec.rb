@@ -13,7 +13,7 @@ RSpec.describe 'Items', type: :request do
       expect(json.size).to eq(5)
     end
 
-    it 'returns ststus code 200' do
+    it 'returns status code 200' do
       expect(response).to have_http_status(200)
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe 'Items', type: :request do
       end
 
       it 'returns a failure message' do
-        expect(response.body).to include("It can't be blank")
+        expect(response.body).to include("can't be blank")
       end
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe 'Items', type: :request do
       end
 
       it 'returns a not found item message' do
-        expect(response.body).to include("Couldn't find a Item with 'id'=0")
+        expect(response.body).to include("Couldn't find Item with 'id'=0")
       end
     end
   end
