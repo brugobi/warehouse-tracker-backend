@@ -1,6 +1,6 @@
 class AuthenticationTokenService
-  HMAC_SECRET = 'my$ecretK3y'.freeze
-  ALGORITHM_TYPE = 'HS256'.freeze
+  HMAC_SECRET = 'my$ecretK3y'
+  ALGORITHM_TYPE = 'HS256'
 
   def self.call
     payload = { 'test' => 'blah' }
