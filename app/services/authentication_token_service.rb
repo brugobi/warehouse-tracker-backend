@@ -1,0 +1,3 @@
+class AuthenticationTokenService
+
+end
