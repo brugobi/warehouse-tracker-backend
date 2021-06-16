@@ -7,15 +7,18 @@ module Api
       rescue_from AuthenticationError, with: :handle_authentication
 
       def create
-        user = User.find_by(username: params.require(:username))
         raise AuthenticationError unless user.authenticate(params.require(:password))
 
         token = AuthenticationTokenService.call(user.id)
 
-        render json: { token: token, username: 'User1' }, status: :created
+        render json: { token: token }, status: :created
       end
 
       private
+
+      def user
+        user ||= User.find_by(username: params.require(:username))
+      end
 
       def parameter_missing(err)
         render json: { error: err.message }, status: :unprocessable_entity

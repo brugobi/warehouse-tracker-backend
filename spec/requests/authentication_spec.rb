@@ -9,7 +9,6 @@ describe 'Authentication', type: :request do
 
       expect(response).to have_http_status(:created)
       expect(json).to eq({
-                           'username' => 'User1',
                            'token' =>
                            'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.DiPWrOKsx3sPeVClrm_j07XNdSYHgBa3Qctosdxax3w'
                          })
