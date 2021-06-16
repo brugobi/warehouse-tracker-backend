@@ -17,7 +17,7 @@ module Api
       private
 
       def user
-        user ||= User.find_by(username: params.require(:username))
+        @user ||= User.find_by(username: params.require(:username))
       end
 
       def parameter_missing(err)
