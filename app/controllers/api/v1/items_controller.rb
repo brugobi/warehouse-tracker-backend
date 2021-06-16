@@ -1,6 +1,8 @@
 module Api
   module V1
     class ItemsController < ApplicationController
+      MAX_PAGINATION_LIMIT = 100
+
       before_action :set_item, only: %i[show update destroy]
 
       def index
@@ -33,6 +35,13 @@ module Api
       end
 
       private
+
+      def limit
+        [
+          params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
+          MAX_PAGINATION_LIMIT
+        ].min
+      end
 
       def item_params
         params.permit(:name, :code, :ideal_quantity, :current_quantity)
