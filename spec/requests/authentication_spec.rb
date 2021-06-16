@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Authentication', type: :request do
   describe 'POST /authenticate' do
-    let(:user) { FactoryBot.create(:user, username: 'User1') }
+    let(:user) { FactoryBot.create(:user, username: 'User1', password: 'password') }
 
     it 'authenticate the user' do
       post '/api/v1/authenticate', params: { username: user.username, password: 'password' }
@@ -10,7 +10,7 @@ describe 'Authentication', type: :request do
       expect(response).to have_http_status(:created)
       expect(json).to eq({
                            'username' => 'User1',
-                           'token' => '123'
+                           'token' => 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.DiPWrOKsx3sPeVClrm_j07XNdSYHgBa3Qctosdxax3w'
                          })
     end
 
