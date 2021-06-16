@@ -1,8 +1,11 @@
 module Api
   module V1
     class ItemsController < ApplicationController
+      include ActionController::HttpAuthentication::Token
+
       MAX_PAGINATION_LIMIT = 100
 
+      before_action :authenticate_user, only: [:create, :destroy]
       before_action :set_item, only: %i[show update destroy]
 
       def index
@@ -35,6 +38,16 @@ module Api
       end
 
       private
+
+      def authenticate_user!
+        # Authentication: Bearer <token>
+        token, _options = token_and_options(request)
+        user_id = AuthenticationTokenService.decode_token(token)
+        User.find(user_id)
+        ActiveRecord::RecordNotFound
+      rescue ActiveRecord::RecordNotFound
+        render status: :unauthorized
+      end
 
       def limit
         [
