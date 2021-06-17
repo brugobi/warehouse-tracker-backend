@@ -1,53 +1,59 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-      include ActionController::HttpAuthentication::Token
-
+      before_action :authenticate_request!
+      rescue_from NoMethodError, with: :no_user
       MAX_PAGINATION_LIMIT = 100
 
-      before_action :authenticate_user, only: [:create, :destroy]
-      before_action :set_item, only: %i[show update destroy]
-
       def index
-        @items = Item.all
-        render json: ItemsRepresenter.new(@items).as_json
+        current_user = current_user!
+        items = Item.limit(limit).offset(params[:offset])
+
+        render json: ItemsRepresenter.new(items, current_user.id).as_json
       end
 
       def create
-        @item = Item.create(item_params)
+        current_user = current_user!
 
-        if @item.save
-          render json: ItemRepresenter.new(@item).as_json, status: :created
+        item = current_user.items.create(item_params)
+
+        if item.save
+          render json: ItemRepresenter.new(item).as_json, status: :created
         else
-          render json: @item.errors, status: :unprocessable_entity
+          render json: item.errors, status: :unprocessable_entity
         end
       end
 
       def show
-        render json: ItemRepresenter.new(@item).as_json
-      end
+        current_user = current_user!
+        item = Item.find(params[:id])
 
-      def update
-        @item.update(item_params)
-        head :no_content
+        render json: ItemRepresenter.new(item, current_user.id).as_json
       end
 
       def destroy
-        @item.destroy
+        Item.find(params[:id]).destroy!
+
+        head :no_content
+      end
+
+      def update
+        Item.find(params[:id]).update!
+
         head :no_content
       end
 
       private
 
-      def authenticate_user!
-        # Authentication: Bearer <token>
-        token, _options = token_and_options(request)
-        user_id = AuthenticationTokenService.decode_token(token)
-        User.find(user_id)
-        ActiveRecord::RecordNotFound
-      rescue ActiveRecord::RecordNotFound
-        render status: :unauthorized
-      end
+      # def authenticate_user!
+      #   # Authentication: Bearer <token>
+      #   token, _options = token_and_options(request)
+      #   user_id = AuthenticationTokenService.decode_token(token)
+      #   User.find(user_id)
+      #   ActiveRecord::RecordNotFound
+      # rescue ActiveRecord::RecordNotFound
+      #   render status: :unauthorized
+      # end
 
       def limit
         [
