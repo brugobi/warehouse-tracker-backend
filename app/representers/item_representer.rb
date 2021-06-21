@@ -7,6 +7,7 @@ class ItemRepresenter
     {
       id: item.id,
       name: item.name,
+      code: item.code,
       ideal_quantity: item.ideal_quantity,
       current_quantity: item.current_quantity
     }

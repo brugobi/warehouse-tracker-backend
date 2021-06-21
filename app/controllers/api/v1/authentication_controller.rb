@@ -2,19 +2,19 @@ module Api
   module V1
     class AuthenticationController < ApplicationController
       class AuthenticationError < StandardError; end
-
       rescue_from ActionController::ParameterMissing, with: :parameter_missing
       rescue_from AuthenticationError, with: :handle_authentication
-
       def create
-        raise AuthenticationError unless user.authenticate(params.require(:password))
+        if user
+          raise AuthenticationError unless user.authenticate(params.require(:password))
 
-        token = AuthenticationTokenService.dencode(user.id)
-
-        render json: {
-          username: user.username,
-          token: token
-        }, status: :created
+          render json: {
+            username: user.username,
+            token: AuthenticationTokenService.call(user.id)
+          }, status: :created
+        else
+          render json: { error: 'No such user' }, status: :unauthorized
+        end
       end
 
       private
