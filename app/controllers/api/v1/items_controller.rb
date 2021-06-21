@@ -2,10 +2,9 @@ module Api
   module V1
     class ItemsController < ApplicationController
       before_action :authenticate_request!
-     
+
       MAX_PAGINATION_LIMIT = 100
       def index
-        current_user = current_user!
         items = Item.limit(limit).offset(params[:offset])
         render json: ItemsRepresenter.new(items).as_json
       end
@@ -21,7 +20,6 @@ module Api
       end
 
       def show
-        current_user = current_user!
         item = Item.find(params[:id])
         render json: ItemRepresenter.new(item).as_json
       end
