@@ -17,7 +17,7 @@ module Api
             username: user.username
           }, status: :created
         else
-          render json: { error: user.errors }, status: :unprocessable_entity
+          render json: { error: 'Username has been taken' }, status: :unprocessable_entity
         end
       end
 
