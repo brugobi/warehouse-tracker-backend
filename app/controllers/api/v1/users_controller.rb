@@ -2,6 +2,12 @@ module Api
   module V1
     class UsersController < ApplicationController
       rescue_from ActionController::ParameterMissing, with: :parameter_missing
+
+      def index
+        @users = User.all
+        render json: @users
+      end
+
       def create
         user = User.new(user_params)
         if user.save
@@ -18,7 +24,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:username, :password, :password_confirmation)
+        params.permit(:username, :password)
       end
 
       def parameter_missing(err)
