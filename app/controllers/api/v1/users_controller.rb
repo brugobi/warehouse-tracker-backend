@@ -11,9 +11,9 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          token = AuthenticationTokenService.call(user.id)
-          render json: {
-            token: token,
+          #token = AuthenticationTokenService.call(user.id)
+          render json: user:{
+            id: user.id,
             username: user.username
           }, status: :created
         else
