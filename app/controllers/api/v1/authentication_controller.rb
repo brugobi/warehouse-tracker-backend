@@ -11,7 +11,7 @@ module Api
           #token: AuthenticationTokenService.call(user.id)
           render json: { user:
             {id: user.id,
-            username: user.username}, status: :created
+            username: user.username}}, status: :created
         else
           render json: { error: 'No such user' }, status: :unauthorized
         end
