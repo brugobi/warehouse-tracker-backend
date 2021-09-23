@@ -1,4 +1,4 @@
-## Wharehouse Tracker API
+## Wharehouse Tracker API Project
 
 This is a Workout Tracker RESTFUL API built with Ruby on Rails. It uses JWT to implement Authentication & Authorization. This project is part of my Full Stack web application that can help users to keep track to keep track the quantity of material stored.
 
