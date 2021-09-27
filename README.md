@@ -4,7 +4,7 @@ This is a Workout Tracker RESTFUL API built with Ruby on Rails. It uses JWT to i
 
 ### Live Link
 
-- [API Home](https://warehouse-api-backend.herokuapp.com/api/v1/)
+- [API Home](https://warehouse-api-backend.herokuapp.com/api/v1/items)
 - [Client App](https://brugobi.github.io/warehouse-tracker-frontend/)
 
 
