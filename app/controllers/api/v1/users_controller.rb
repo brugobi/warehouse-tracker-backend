@@ -11,8 +11,8 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          #token = AuthenticationTokenService.call(user.id)
-          render json: {id: user.id, username: user.username}
+          # token = AuthenticationTokenService.call(user.id)
+          render json: { id: user.id, username: user.username }
         else
           render json: { error: 'Username has been taken' }, status: :unprocessable_entity
         end

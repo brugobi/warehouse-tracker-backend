@@ -1,7 +1,7 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-      #before_action :authenticate_request!
+      # before_action :authenticate_request!
 
       MAX_PAGINATION_LIMIT = 100
       def index
@@ -11,7 +11,7 @@ module Api
 
       def create
         # current_user = current_user!
-        #item = current_user.items.create(item_params)
+        # item = current_user.items.create(item_params)
         item = Item.create(item_params)
         if item.save
           render json: ItemRepresenter.new(item).as_json, status: :created

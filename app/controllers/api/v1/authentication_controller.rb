@@ -8,8 +8,8 @@ module Api
         if user
           raise AuthenticationError unless user.authenticate(params.require(:password))
 
-          #token: AuthenticationTokenService.call(user.id)
-          render json: {id: user.id, username: user.username}
+          # token: AuthenticationTokenService.call(user.id)
+          render json: { id: user.id, username: user.username }
         else
           render json: { error: 'No such user' }, status: :unauthorized
         end
