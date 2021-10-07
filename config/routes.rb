@@ -4,8 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :items
       resources :users
-      post 'authenticate', to: 'authentication#create'
-      post 'register', to: 'users#create'
+      resources :authenticate, only: [:create]
     end
   end
 end
