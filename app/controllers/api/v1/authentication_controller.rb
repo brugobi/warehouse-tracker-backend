@@ -6,7 +6,7 @@ module Api
       rescue_from AuthenticationError, with: :handle_authentication
       def create
         if user
-          raise AuthenticationError unless user.authenticate(params.require(:password))
+          raise AuthenticationError unless user.authenticate(params[:authentication][:password])
 
           render json: { id: user.id, username: user.username }
         else
@@ -17,7 +17,11 @@ module Api
       private
 
       def user
-        @user ||= User.find_by(username: params.require(:username))
+        @user ||= User.find_by(username: params[:authentication][:username])
+      end
+
+      def authentication_params
+        params.require(:authentication).permit(:username, :password)
       end
 
       def parameter_missing(err)
