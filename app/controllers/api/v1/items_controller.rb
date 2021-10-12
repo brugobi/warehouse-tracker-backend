@@ -1,8 +1,8 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-
       MAX_PAGINATION_LIMIT = 100
+
       def index
         items = Item.limit(limit).offset(params[:offset])
         render json: ItemsRepresenter.new(items).as_json
