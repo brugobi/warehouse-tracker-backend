@@ -1,6 +1,6 @@
 ## Wharehouse Tracker API Project
 
-This is a warehouse tracker RESTFUL API built with Ruby on Rails. It uses JWT to implement Authentication & Authorization. This project is part of my Full Stack web application that can help users to keep track to keep track the quantity of material stored.
+This is a warehouse tracker RESTFUL API built with Ruby on Rails. This project is part of my Full Stack web application that can help users to keep track to keep track the quantity of material stored.
 
 ### Live Link
 
