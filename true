@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20211011202041_add_index_to_code.rb
